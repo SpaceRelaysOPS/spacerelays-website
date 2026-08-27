@@ -84,10 +84,16 @@
         }
 
         .glass-card {
-            background: rgba(30, 33, 48, 0.4);
+            background: transparent;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #team .bg-space-800,
+        #contact input,
+        #contact textarea {
+            background-color: transparent;
         }
         
         .glass-card:hover {
@@ -314,7 +320,7 @@
                 </div>
                 <!-- Optical Communication Terminals -->
                 <div class="glass-card rounded-2xl overflow-hidden md:col-span-3 md:grid md:grid-cols-2 md:items-center">
-                    <div class="bg-black/30 p-6 md:p-8">
+                    <div class="p-6 md:p-8">
                         <img src="https://raw.githubusercontent.com/vigneshm197/spacerelays-website/main/optical-communication-terminal.png" alt="SpaceRelays optical communication terminal" class="w-full aspect-square object-contain">
                     </div>
                     <div class="p-8 md:p-10">
