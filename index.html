@@ -1,1 +1,1017 @@
-<!DOCTYPE html><html lang="en" class="scroll-smooth"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>SpaceRelays | Satellite Communication</title>    <script src="https://cdn.tailwindcss.com"></script>    <script>        tailwind.config = {            theme: {                extend: {                    colors: {                        space: {                            900: '#0a0b10',                            800: '#141620',                            700: '#1e2130',                            accent: '#3b82f6',                            accentLight: '#60a5fa'                        }                    },                    fontFamily: {                        sans: ['Inter', 'sans-serif'],                        display: ['Space Grotesk', 'sans-serif'],                    }                }            }        }    </script>    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">    <script src="https://unpkg.com/@phosphor-icons/web"></script>    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>    <style>        @keyframes float {            0% { transform: translateY(0px); }            50% { transform: translateY(-10px); }
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceRelays | Satellite Communication</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        space: {
+                            900: '#0a0b10', // Deep space background
+                            800: '#141620', // Slightly lighter for sections
+                            700: '#1e2130', // Cards
+                            accent: '#3b82f6', // Bright blue accent
+                            accentLight: '#60a5fa'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        /* Custom animations for a subtle space feel */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .bg-stars {
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 100px 100px;
+            background-attachment: fixed;
+        }
+
+        body {
+            background-color: #0a0b10;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                radial-gradient(circle at 12% 18%, rgba(59, 130, 246, 0.14), transparent 22rem),
+                radial-gradient(circle at 88% 72%, rgba(30, 64, 175, 0.12), transparent 26rem),
+                radial-gradient(circle at 50% 100%, rgba(15, 23, 42, 0.75), transparent 34rem);
+            background-size: 100px 100px, 100px 100px, 100px 100px, auto, auto, auto;
+            background-repeat: repeat, repeat, repeat, no-repeat, no-repeat, no-repeat;
+            background-attachment: fixed;
+        }
+
+        #home,
+        #offerings,
+        #about,
+        #team,
+        #contact,
+        body > footer {
+            background-color: transparent;
+        }
+
+        #mobile-menu {
+            background-color: rgba(10, 11, 16, 0.55);
+            backdrop-filter: blur(12px);
+        }
+
+        .glass-nav {
+            background: rgba(10, 11, 16, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: transparent;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #team .bg-space-800,
+        #contact input,
+        #contact textarea {
+            background-color: transparent;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Gradient text utility */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #60a5fa, #a78bfa);
+        }
+
+        #globe-canvas-container {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0.6;
+            pointer-events: none; /* Let clicks pass through to content */
+        }
+
+        .offerings-satellite {
+            position: absolute;
+            top: -4.5rem;
+            right: 12%;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            opacity: 0;
+            transform: translateY(-3rem) scale(0.72) rotate(-8deg);
+            transition: opacity 0.8s ease, transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: none;
+        }
+
+        .offerings-satellite.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(-8deg);
+        }
+
+        .offerings-satellite-body {
+            position: relative;
+            width: 2.6rem;
+            height: 1.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.75);
+            background: linear-gradient(135deg, #d4af37, #6b5520);
+            box-shadow: 0 0 1.5rem rgba(96, 165, 250, 0.7);
+        }
+
+        .offerings-satellite-body::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -0.6rem;
+            width: 0.1rem;
+            height: 0.6rem;
+            background: #d1d5db;
+            transform: translateX(-50%);
+        }
+
+        .offerings-satellite-panel {
+            width: 2.2rem;
+            height: 1rem;
+            border: 1px solid rgba(147, 197, 253, 0.8);
+            background: repeating-linear-gradient(90deg, #0a1a3a 0 0.3rem, #60a5fa 0.32rem 0.38rem);
+            box-shadow: 0 0 0.8rem rgba(59, 130, 246, 0.5);
+        }
+
+        @media (max-width: 640px) {
+            .offerings-satellite {
+                right: 8%;
+                transform: translateY(-3rem) scale(0.58) rotate(-8deg);
+            }
+
+            .offerings-satellite.is-visible {
+                transform: translateY(0) scale(0.8) rotate(-8deg);
+            }
+        }
+    </style>
+</head>
+<body class="bg-space-900 text-gray-300 font-sans antialiased overflow-x-hidden selection:bg-space-accent selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="flex items-center gap-2">
+                        <img src="https://raw.githubusercontent.com/vigneshm197/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays" class="h-20 w-20 rounded-full object-contain">
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-sm font-medium hover:text-white transition-colors">Home</a>
+                    <a href="#vision" class="text-sm font-medium hover:text-white transition-colors">Vision</a>
+                    <a href="#offerings" class="text-sm font-medium hover:text-white transition-colors">Offerings</a>
+                    <a href="#about" class="text-sm font-medium hover:text-white transition-colors">About Us</a>
+                    <a href="#team" class="text-sm font-medium hover:text-white transition-colors">Team</a>
+                    <a href="#contact" class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white text-sm font-medium transition-all hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">Contact Us</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2">
+                        <i class="ph ph-list text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-white/5 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="#home" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Home</a>
+                <a href="#vision" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Vision</a>
+                <a href="#offerings" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Offerings</a>
+                <a href="#about" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">About Us</a>
+                <a href="#team" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Team</a>
+                <a href="#contact" class="mobile-link block px-3 py-3 mt-2 rounded-md text-base font-medium bg-space-accent/20 text-space-accentLight text-center">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-[90vh] flex items-center justify-center">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 bg-stars opacity-50 z-0"></div>
+        
+        <div id="globe-canvas-container"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full mt-10">
+            <div class="flex flex-col items-center justify-center">
+                
+                <!-- Text Content -->
+                <div class="text-center">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-space-900/60 backdrop-blur-md border border-white/10 text-xs font-medium text-space-accentLight mb-6">
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                        Made in India. For the World.
+                    </div>
+                    
+                    <h1 class="text-5xl lg:text-7xl font-display font-bold text-white leading-tight mb-6 drop-shadow-xl">
+                        Connecting the <br />
+                        <span class="text-gradient drop-shadow-xl">Space Economy</span>
+                    </h1>
+                    
+                    <p class="text-lg lg:text-xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium">
+                        At SpaceRelays, our mission is to ensure seamless communication and data transfer, empowering low-earth orbit satellites to thrive in a booming space economy.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="#offerings" class="px-8 py-4 rounded-full bg-space-accent hover:bg-blue-600 text-white font-medium transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] flex items-center justify-center gap-2 group">
+                            Explore Solutions
+                            <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#vision" class="px-8 py-4 rounded-full bg-space-900/60 backdrop-blur-md hover:bg-space-900/80 border border-white/20 text-white font-medium transition-all flex items-center justify-center">
+                            Our Vision
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision & Offerings -->
+    <section id="offerings" class="py-24 bg-space-800 relative">
+        <div class="offerings-satellite" id="offerings-satellite" aria-hidden="true">
+            <div class="offerings-satellite-panel"></div>
+            <div class="offerings-satellite-body"></div>
+            <div class="offerings-satellite-panel"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-20" id="vision">
+                <h2 class="text-sm font-bold tracking-widest text-space-accentLight uppercase mb-3">Our Vision</h2>
+                <p class="text-3xl md:text-4xl font-display font-medium text-white leading-snug">
+                    Shaping a World of Possibilities with a global optical relay network.
+                </p>
+                <div class="w-24 h-1 bg-gradient-to-r from-space-accent to-transparent mx-auto mt-8 rounded-full"></div>
+            </div>
+
+            <!-- Main Offering Description -->
+            <div class="glass-card rounded-2xl p-8 md:p-12 mb-16 text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-500/10 text-space-accentLight mb-6">
+                    <i class="ph-duotone ph-broadcast text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-display font-semibold text-white mb-4">High-Speed Real-Time Connectivity</h3>
+                <p class="text-gray-400 text-lg max-w-4xl mx-auto leading-relaxed">
+                    We are building a network and infrastructure of optical relay satellites at high LEO to provide high-speed, real-time connectivity to customer satellites at scale. With our turnkey communication module, you get instant and trusted connectivity for your time-sensitive missions.
+                </p>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <i class="ph-duotone ph-rocket-launch text-3xl text-purple-400 mb-4 block"></i>
+                    <h4 class="text-xl font-medium text-white mb-3">Turnkey Modules</h4>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Ready-to-integrate communication modules designed for rapid deployment on customer satellites, reducing time-to-orbit.
+                    </p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <i class="ph-duotone ph-network text-3xl text-green-400 mb-4 block"></i>
+                    <h4 class="text-xl font-medium text-white mb-3">Optical Relay Network</h4>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        A robust high LEO infrastructure utilizing advanced photonics for massive bandwidth and low-latency data transfer.
+                    </p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <i class="ph-duotone ph-shield-check text-3xl text-blue-400 mb-4 block"></i>
+                    <h4 class="text-xl font-medium text-white mb-3">Trusted Connectivity</h4>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Secure and reliable data links essential for time-sensitive missions and critical space operations.
+                    </p>
+                </div>
+                <!-- Optical Communication Terminals -->
+                <div class="glass-card rounded-2xl overflow-hidden md:col-span-3 md:grid md:grid-cols-2 md:items-center">
+                    <div class="p-6 md:p-8">
+                        <img src="https://raw.githubusercontent.com/vigneshm197/spacerelays-website/main/optical-communication-terminal.png" alt="SpaceRelays optical communication terminal" class="w-full aspect-square object-contain">
+                    </div>
+                    <div class="p-8 md:p-10">
+                        <i class="ph-duotone ph-aperture text-3xl text-amber-300 mb-4 block"></i>
+                        <h4 class="text-2xl font-display font-semibold text-white mb-3">Optical Communication Terminals</h4>
+                        <p class="text-gray-400 leading-relaxed">
+                            High-precision optical terminals built for secure, high-speed links between satellites and relay infrastructure.
+                        </p>
+                    </div>
+                </div>
+                <!-- Optical Relay Satellites as a Service -->
+                <div class="glass-card rounded-2xl overflow-hidden md:col-span-3 md:grid md:grid-cols-2 md:items-center">
+                    <div class="p-6 md:p-8">
+                        <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/inter-satellite-link-solutions.png" alt="Optical Relay Satellites as a Service" class="w-full aspect-[3/2] object-cover rounded-xl">
+                    </div>
+                    <div class="p-8 md:p-10">
+                        <div class="flex items-center justify-center gap-3 mb-4 text-cyan-300">
+                            <i class="ph-duotone ph-satellite text-3xl"></i>
+                            <i class="ph-duotone ph-arrows-left-right text-3xl"></i>
+                            <i class="ph-duotone ph-satellite text-3xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-display font-semibold text-white mb-3">Optical Relay Satellites as a Service</h4>
+                        <p class="text-gray-400 leading-relaxed">
+                            End-to-end relay infrastructure delivered as a service, enabling customer satellites to access secure, resilient, high-bandwidth communications through a scalable optical network in orbit.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Terrestrial Communication -->
+                <div class="glass-card rounded-2xl overflow-hidden md:col-span-3 md:grid md:grid-cols-2 md:items-center">
+                    <div class="p-6 md:p-8">
+                        <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/terrestrial-communication.jpg" alt="Terrestrial communication infrastructure" class="w-full aspect-[3/2] object-cover rounded-xl">
+                    </div>
+                    <div class="p-8 md:p-10">
+                        <div class="flex items-center justify-center gap-3 mb-4 text-cyan-300">
+                            <i class="ph-duotone ph-globe text-3xl"></i>
+                            <i class="ph-duotone ph-wifi-high text-3xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-display font-semibold text-white mb-3">Terrestrial Communication</h4>
+                        <p class="text-gray-400 leading-relaxed">
+                            Reliable terrestrial network integration delivering resilient connectivity, last-mile reach, and seamless data handoff between ground systems and orbital infrastructure.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Inter Satellite Link Solutions -->
+                <div class="glass-card rounded-2xl overflow-hidden md:col-span-3 md:grid md:grid-cols-2 md:items-center">
+                    <div class="p-6 md:p-8">
+                        <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/inter-satellite-link-solutions.jpg" alt="Inter satellite optical communication link" class="w-full aspect-[3/2] object-cover rounded-xl">
+                    </div>
+                    <div class="p-8 md:p-10">
+                        <div class="flex items-center justify-center gap-3 mb-4 text-cyan-300">
+                            <i class="ph-duotone ph-satellite text-3xl"></i>
+                            <i class="ph-duotone ph-arrows-left-right text-3xl"></i>
+                            <i class="ph-duotone ph-satellite text-3xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-display font-semibold text-white mb-3">Inter Satellite Link Solutions</h4>
+                        <p class="text-gray-400 leading-relaxed">
+                            High-speed optical links that connect satellites with relay infrastructure, enabling secure, precise, and continuous data transfer across orbit.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-24 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mb-14">
+                <h2 class="text-sm font-bold tracking-widest text-space-accentLight uppercase mb-3">About Us</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-semibold text-white leading-tight mb-6">Connecting Space. Enabling Missions.</h3>
+                <p class="text-lg text-gray-300 leading-relaxed">
+                    At SpaceRelays, we are building the next generation of space communication infrastructure - a scalable network of optical relay satellites in high Low Earth Orbit (LEO), delivering high-speed, real-time connectivity for satellites and space missions worldwide.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <p class="text-gray-400 text-lg leading-relaxed">
+                    Traditional satellite communication often struggles with limited coverage and delayed data transmission. We're solving this with an advanced optical network built for reliable, continuous connectivity across space.
+                </p>
+
+                <div class="glass-card rounded-2xl p-8">
+                    <h4 class="text-2xl font-display font-semibold text-white mb-4">Built for Time-Sensitive Missions</h4>
+                    <p class="text-gray-400 leading-relaxed mb-5">
+                        Our infrastructure is designed for missions where speed, reliability, and data access matter most. Through our optical relay network, customers get faster, more efficient communication - without the cost and complexity of building their own infrastructure.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed">
+                        Our turnkey communication module makes integration simple, giving customers instant access to trusted, high-speed connectivity.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-24 relative bg-space-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-bold tracking-widest text-space-accentLight uppercase mb-3">Leadership</h2>
+                <h3 class="text-3xl md:text-4xl font-display font-semibold text-white">Meet Our Team</h3>
+            </div>
+
+            <!-- Founders Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-20">
+                
+                <!-- Manasvi Bhatt -->
+                <div class="glass-card rounded-2xl overflow-hidden group">
+                    <div class="aspect-square bg-space-800 relative overflow-hidden">
+                        <!-- Placeholder image, as actual images were extracted as filenames -->
+                        <div class="absolute inset-0 bg-[url('https://placehold.co/400x400/1e2130/ffffff?text=Manasvi')] bg-cover bg-center group-hover:scale-105 transition-transform duration-500"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-space-900/90 via-space-900/20 to-transparent"></div>
+                    </div>
+                    <div class="p-6 relative -mt-12 bg-space-900/80 backdrop-blur-md">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h4 class="text-lg font-bold text-white">Manasvi Bhatt</h4>
+                                <p class="text-sm text-space-accentLight">Co Founder</p>
+                            </div>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors" title="LinkedIn">
+                                <i class="ph-fill ph-linkedin-logo text-xl"></i>
+                            </a>
+                        </div>
+                        <p class="text-sm text-gray-400 mt-4 leading-relaxed line-clamp-4 group-hover:line-clamp-none transition-all">
+                            ECE graduate from IIST Trivandrum. Worked as a Ground Stations Software Engineer at ViaSat India for 6 years. Leveraging experience in satellite communications and networking to build innovative solutions.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Soumya Pratap Tripathy -->
+                <div class="glass-card rounded-2xl overflow-hidden group">
+                    <div class="aspect-square bg-space-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('https://placehold.co/400x400/1e2130/ffffff?text=Soumya')] bg-cover bg-center group-hover:scale-105 transition-transform duration-500"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-space-900/90 via-space-900/20 to-transparent"></div>
+                    </div>
+                    <div class="p-6 relative -mt-12 bg-space-900/80 backdrop-blur-md">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h4 class="text-lg font-bold text-white">Soumya Pratap Tripathy</h4>
+                                <p class="text-sm text-space-accentLight">Co Founder</p>
+                            </div>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors" title="LinkedIn">
+                                <i class="ph-fill ph-linkedin-logo text-xl"></i>
+                            </a>
+                        </div>
+                        <p class="text-sm text-gray-400 mt-4 leading-relaxed line-clamp-4 group-hover:line-clamp-none transition-all">
+                            PhD candidate at MIT Media Lab with 20+ patents in nanotech and photonics. Leads the world's first integrated photonic solid-state optical communication system for satellite relays.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advisors Section -->
+            <div class="mt-16">
+                <h3 class="text-2xl font-display font-medium text-center text-white mb-10">Strategic Advisors</h3>
+                <div class="flex flex-wrap justify-center gap-6">
+                    
+                    <!-- Pawan Kumar Chandana -->
+                    <div class="glass-card p-4 rounded-xl flex items-center gap-4 w-full max-w-sm">
+                        <div class="w-16 h-16 rounded-full bg-space-800 flex-shrink-0 bg-[url('https://placehold.co/100x100/1e2130/ffffff?text=Pawan')] bg-cover"></div>
+                        <div>
+                            <h4 class="text-base font-bold text-white">Pawan Kumar Chandana</h4>
+                            <p class="text-xs text-space-accentLight mb-1">Strategic Advisor</p>
+                            <p class="text-xs text-gray-400 line-clamp-2">CEO - Skyroot Aerospace, Ex-Scientist ISRO, IIT KGP Alumni</p>
+                        </div>
+                         <a href="#" class="ml-auto text-gray-500 hover:text-white" title="LinkedIn"><i class="ph-fill ph-linkedin-logo text-lg"></i></a>
+                    </div>
+
+                    <!-- John Huddle -->
+                    <div class="glass-card p-4 rounded-xl flex items-center gap-4 w-full max-w-sm">
+                        <div class="w-16 h-16 rounded-full bg-space-800 flex-shrink-0 bg-[url('https://placehold.co/100x100/1e2130/ffffff?text=John')] bg-cover"></div>
+                        <div>
+                            <h4 class="text-base font-bold text-white">John Huddle</h4>
+                            <p class="text-xs text-space-accentLight mb-1">Business Advisor</p>
+                            <p class="text-xs text-gray-400 line-clamp-2">Ex-Director, APAC, SES Satellites, Ex-Director, Thuraya</p>
+                        </div>
+                        <a href="#" class="ml-auto text-gray-500 hover:text-white" title="LinkedIn"><i class="ph-fill ph-linkedin-logo text-lg"></i></a>
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- Partners/Backed By -->
+            <div class="mt-24 pt-12 text-center">
+                <p class="text-sm font-medium text-gray-500 uppercase tracking-widest mb-8">Backed By</p>
+                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-300">
+                    <span class="text-xl font-display font-bold text-white">machee aero</span>
+                    <span class="text-xl font-display font-bold text-white">Social Alpha</span>
+                    <span class="text-xl font-display font-bold text-white">NVIDIA</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-space-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                
+                <!-- Contact Info -->
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-display font-semibold text-white mb-6">Let's Connect</h2>
+                    <p class="text-gray-400 mb-8 max-w-md leading-relaxed">
+                        Interested in joining our mission or learning more about our high-speed optical relay solutions? Get in touch with us.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 text-space-accentLight mt-1">
+                                <i class="ph ph-envelope-simple text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">General Inquiries</p>
+                                <a href="mailto:hello@spacerelays.in" class="text-white hover:text-space-accentLight transition-colors">hello@spacerelays.in</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 text-space-accentLight mt-1">
+                                <i class="ph ph-briefcase text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Careers</p>
+                                <a href="mailto:careers@spacerelays.in" class="text-white hover:text-space-accentLight transition-colors">careers@spacerelays.in</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 text-space-accentLight mt-1">
+                                <i class="ph ph-map-pin text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Location</p>
+                                <p class="text-white">Bengaluru, Karnataka, India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="glass-card p-8 rounded-2xl relative">
+                     <!-- Success message overlay (hidden by default) -->
+                     <div id="form-success" class="hidden absolute inset-0 bg-space-800/95 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center z-10 text-center p-6">
+                        <div class="w-16 h-16 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mb-4">
+                            <i class="ph-bold ph-check text-3xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-2">Message Sent!</h4>
+                        <p class="text-gray-400 text-sm">Thank you for reaching out. We will get back to you shortly.</p>
+                        <button type="button" onclick="resetForm()" class="mt-6 px-6 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm text-white transition-colors">Send Another</button>
+                     </div>
+
+                    <form id="contact-form" class="space-y-5" onsubmit="handleFormSubmit(event)">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-400 mb-1">Your Name</label>
+                            <input type="text" id="name" required class="w-full bg-space-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-space-accent focus:ring-1 focus:ring-space-accent transition-colors placeholder-gray-600" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-400 mb-1">Your Email</label>
+                            <input type="email" id="email" required class="w-full bg-space-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-space-accent focus:ring-1 focus:ring-space-accent transition-colors placeholder-gray-600" placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-400 mb-1">Message</label>
+                            <textarea id="message" rows="4" required class="w-full bg-space-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-space-accent focus:ring-1 focus:ring-space-accent transition-colors resize-none placeholder-gray-600" placeholder="How can we help you?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 px-4 bg-space-accent hover:bg-blue-600 text-white font-medium rounded-lg transition-all shadow-[0_0_15px_rgba(59,130,246,0.2)] hover:shadow-[0_0_25px_rgba(59,130,246,0.4)] flex items-center justify-center gap-2">
+                            Send Message
+                            <i class="ph-bold ph-paper-plane-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-space-900 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <div class="flex items-center gap-2">
+                <img src="https://raw.githubusercontent.com/vigneshm197/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays" class="h-16 w-16 rounded-full object-contain">
+            </div>
+
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-linkedin-logo text-2xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-x-logo text-2xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-instagram-logo text-2xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-youtube-logo text-2xl"></i></a>
+            </div>
+            
+            <div class="text-center md:text-right">
+                <div class="flex gap-4 justify-center md:justify-end mb-2 text-sm text-gray-500">
+                    <a href="#" class="hover:text-gray-300">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gray-300">Terms & Conditions</a>
+                </div>
+                <p class="text-xs text-gray-600">
+                    &copy; 2025 by SpaceRelays (Prakashikam Space Private Limited).<br>All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // --- UI Interactions ---
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            if (btn && menu) {
+                btn.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                });
+
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        menu.classList.add('hidden');
+                    });
+                });
+            }
+
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 20) {
+                        navbar.classList.add('shadow-lg', 'bg-space-900/90');
+                        navbar.classList.remove('bg-transparent');
+                    } else {
+                        navbar.classList.remove('shadow-lg', 'bg-space-900/90');
+                    }
+                });
+            }
+
+            const offerings = document.getElementById('offerings');
+            const offeringsSatellite = document.getElementById('offerings-satellite');
+            if (offerings && offeringsSatellite && 'IntersectionObserver' in window) {
+                const offeringsObserver = new IntersectionObserver((entries, observer) => {
+                    if (entries[0].isIntersecting) {
+                        offeringsSatellite.classList.add('is-visible');
+                        observer.disconnect();
+                    }
+                }, { threshold: 0.12 });
+                offeringsObserver.observe(offerings);
+            }
+
+            // Expose form functions to global scope for HTML onclick/onsubmit attributes
+            window.handleFormSubmit = function(e) {
+                e.preventDefault(); 
+                const btn = e.target.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+                
+                btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin"></i> Sending...';
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    document.getElementById('form-success').classList.remove('hidden');
+                    e.target.reset();
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 1000);
+            };
+
+            window.resetForm = function() {
+                document.getElementById('form-success').classList.add('hidden');
+            };
+
+            let scene, camera, renderer, globe, cloudLayers, opticalMesh;
+            let targetRotationX = 0;
+            let targetRotationY = 0;
+            const baseRotationX = 0.35;
+            const baseRotationY = -2.95;
+            let continuousRotationY = baseRotationY;
+            const earthClearanceRadius = 2.04;
+            let mouseX = 0;
+            let windowHalfX = window.innerWidth / 2;
+            let satellitesGroup;
+            let opticalLinks = [];
+
+            function initGlobe() {
+                const container = document.getElementById('globe-canvas-container');
+                if (!container) return;
+                container.innerHTML = ''; // Clear previous instances
+                
+                scene = new THREE.Scene();
+                
+                camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+                camera.position.z = 4.8;
+                camera.position.x = 0;
+                camera.position.y = -0.2; 
+
+                renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                // Cap pixel ratio to ensure performance isn't hurt on ultra-high res screens
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                container.appendChild(renderer.domElement);
+
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.15); 
+                scene.add(ambientLight);
+                
+                const sunLight = new THREE.DirectionalLight(0xffffff, 1.2); 
+                sunLight.position.set(5, 3, 5);
+                scene.add(sunLight);
+
+                const backLight = new THREE.DirectionalLight(0x3b82f6, 0.4); 
+                backLight.position.set(-5, -3, -5);
+                scene.add(backLight);
+
+                const textureLoader = new THREE.TextureLoader();
+                textureLoader.setCrossOrigin('anonymous'); // Prevents tainted canvas errors
+
+                // Using jsdelivr CDN for reliable loading with correct CORS headers
+                const earthMap = textureLoader.load('https://cdn.jsdelivr.net/gh/mrdoob/three.js@master/examples/textures/planets/earth_atmos_2048.jpg');
+                const earthSpecular = textureLoader.load('https://cdn.jsdelivr.net/gh/mrdoob/three.js@master/examples/textures/planets/earth_specular_2048.jpg');
+                const cloudMap = textureLoader.load('https://cdn.jsdelivr.net/gh/mrdoob/three.js@master/examples/textures/planets/earth_clouds_1024.png');
+
+                const earthGeometry = new THREE.SphereGeometry(2, 64, 64);
+                const earthMaterial = new THREE.MeshPhongMaterial({
+                    map: earthMap,
+                    specularMap: earthSpecular, 
+                    specular: new THREE.Color(0x333333),
+                    shininess: 25
+                });
+                
+                globe = new THREE.Mesh(earthGeometry, earthMaterial);
+                globe.rotation.x = baseRotationX;
+                globe.rotation.y = baseRotationY;
+                globe.rotation.z = 0;
+                scene.add(globe);
+
+                cloudLayers = [];
+                const cloudLayerSettings = [
+                    { radius: 2.02, opacity: 0.72, speed: 0.0007 },
+                    { radius: 2.045, opacity: 0.34, speed: -0.00045 },
+                    { radius: 2.075, opacity: 0.16, speed: 0.00025 }
+                ];
+                cloudLayerSettings.forEach(settings => {
+                    const cloudGeometry = new THREE.SphereGeometry(settings.radius, 64, 64);
+                    const cloudMaterial = new THREE.MeshPhongMaterial({
+                        map: cloudMap,
+                        transparent: true,
+                        opacity: settings.opacity,
+                        blending: THREE.AdditiveBlending,
+                        side: THREE.DoubleSide,
+                        depthWrite: false
+                    });
+                    const cloudLayer = new THREE.Mesh(cloudGeometry, cloudMaterial);
+                    cloudLayer.userData.speed = settings.speed;
+                    cloudLayers.push(cloudLayer);
+                    globe.add(cloudLayer);
+                });
+
+                satellitesGroup = new THREE.Group();
+                scene.add(satellitesGroup);
+
+                function createSatellite() {
+                    const satGroup = new THREE.Group();
+                    
+                    const foilMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.8, roughness: 0.4, bumpScale: 0.05 }); 
+                    const silverMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, metalness: 1.0, roughness: 0.2 });
+                    const solarMat = new THREE.MeshStandardMaterial({ color: 0x0a1a3a, metalness: 0.6, roughness: 0.2 });
+                    const darkMetalMat = new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.8, roughness: 0.5 });
+
+                    // Main Bus 
+                    const busGeo = new THREE.BoxGeometry(0.08, 0.08, 0.12);
+                    const bus = new THREE.Mesh(busGeo, foilMat);
+                    satGroup.add(bus);
+
+                    // Solar Panels Array
+                    const panelGroup = new THREE.Group();
+                    const wingW = 0.4;
+                    const wingH = 0.15;
+                    const wingD = 0.005;
+                    
+                    const trussGeo = new THREE.CylinderGeometry(0.008, 0.008, 0.45);
+                    const truss = new THREE.Mesh(trussGeo, darkMetalMat);
+                    truss.rotation.z = Math.PI / 2;
+                    panelGroup.add(truss);
+
+                    function createWing(xPos) {
+                        const wing = new THREE.Group();
+                        const back = new THREE.Mesh(new THREE.BoxGeometry(wingW, wingH, wingD), silverMat); 
+                        
+                        const cellW = (wingW - 0.02) / 3; 
+                        for(let i=0; i<3; i++) {
+                            const cell = new THREE.Mesh(new THREE.BoxGeometry(cellW, wingH - 0.02, wingD + 0.002), solarMat);
+                            cell.position.x = (i - 1) * (cellW + 0.002);
+                            back.add(cell);
+                        }
+                        
+                        wing.add(back);
+                        wing.position.x = xPos;
+                        return wing;
+                    }
+
+                    panelGroup.add(createWing(-0.28));
+                    panelGroup.add(createWing(0.28));
+                    panelGroup.rotation.x = Math.PI / 6;
+                    satGroup.add(panelGroup);
+
+                    // Earth-facing communication payload
+                    const payloadGroup = new THREE.Group();
+                    payloadGroup.position.set(0, 0, 0.06); 
+                    
+                    const dishGeo = new THREE.SphereGeometry(0.05, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2.5);
+                    const dish = new THREE.Mesh(dishGeo, silverMat);
+                    dish.material.side = THREE.DoubleSide; 
+                    dish.rotation.x = -Math.PI; 
+                    payloadGroup.add(dish);
+                    
+                    const feedGeo = new THREE.CylinderGeometry(0.003, 0.001, 0.02);
+                    const feed = new THREE.Mesh(feedGeo, silverMat);
+                    feed.position.set(0, 0, 0.03);
+                    feed.rotation.x = Math.PI / 2;
+                    payloadGroup.add(feed);
+                    
+                    satGroup.add(payloadGroup);
+                    satGroup.scale.set(0.8, 0.8, 0.8);
+                    
+                    return satGroup;
+                }
+
+                const satCount = 32;
+                for(let i=0; i<satCount; i++) {
+                    const sat = createSatellite();
+                    
+                    const radius = 2.4 + Math.random() * 0.4; 
+                    const inclination = (Math.random() * 0.8) - 0.4; 
+                    const phi = (Math.PI / 2) + inclination; 
+                    
+                    const theta = Math.random() * Math.PI * 2; 
+                    const speed = 0.0015 + Math.random() * 0.001; 
+                    
+                    sat.position.set(
+                        radius * Math.sin(phi) * Math.cos(theta),
+                        radius * Math.cos(phi),
+                        radius * Math.sin(phi) * Math.sin(theta)
+                    );
+                    
+                    sat.lookAt(0,0,0);
+                    
+                    sat.userData = {
+                        radius: radius,
+                        theta: theta,
+                        phi: phi,
+                        speed: speed 
+                    };
+                    
+                    satellitesGroup.add(sat);
+                }
+
+                opticalMesh = new THREE.Group();
+                opticalLinks = [];
+                const opticalLinkMaterial = new THREE.LineBasicMaterial({
+                    color: 0x67e8f9,
+                    transparent: true,
+                    opacity: 0.16,
+                    blending: THREE.AdditiveBlending,
+                    depthWrite: false
+                });
+                for (let sourceIndex = 0; sourceIndex < satCount; sourceIndex++) {
+                    for (let targetIndex = sourceIndex + 1; targetIndex < satCount; targetIndex++) {
+                        const linkGeometry = new THREE.BufferGeometry();
+                        linkGeometry.setAttribute('position', new THREE.Float32BufferAttribute(6, 3));
+                        const link = new THREE.Line(linkGeometry, opticalLinkMaterial);
+                        link.visible = false;
+                        link.userData = {
+                            source: satellitesGroup.children[sourceIndex],
+                            target: satellitesGroup.children[targetIndex]
+                        };
+                        opticalLinks.push(link);
+                        opticalMesh.add(link);
+                    }
+                }
+                scene.add(opticalMesh);
+
+                const atmosGeometry = new THREE.SphereGeometry(2.1, 64, 64);
+                const atmosMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x3b82f6,
+                    transparent: true,
+                    opacity: 0.05,
+                    side: THREE.BackSide,
+                    blending: THREE.AdditiveBlending
+                });
+                const atmos = new THREE.Mesh(atmosGeometry, atmosMaterial);
+                scene.add(atmos);
+
+                window.addEventListener('resize', onWindowResize, false);
+                window.addEventListener('scroll', onScroll, false);
+                document.addEventListener('mousemove', onMouseMove, false);
+
+                animate();
+            }
+
+            function onWindowResize() {
+                windowHalfX = window.innerWidth / 2;
+                if(camera && renderer) {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                }
+            }
+
+            function onScroll() {
+                const scrollY = window.scrollY;
+                targetRotationY = scrollY * 0.003;
+                targetRotationX = scrollY * 0.0005; 
+            }
+
+            function onMouseMove(event) {
+                mouseX = (event.clientX - windowHalfX) * 0.0002;
+            }
+
+            function hasLineOfSight(sourcePosition, targetPosition) {
+                const segmentX = targetPosition.x - sourcePosition.x;
+                const segmentY = targetPosition.y - sourcePosition.y;
+                const segmentZ = targetPosition.z - sourcePosition.z;
+                const segmentLengthSquared = segmentX * segmentX + segmentY * segmentY + segmentZ * segmentZ;
+                if (segmentLengthSquared === 0) return false;
+
+                const projection = Math.max(0, Math.min(1, -(
+                    sourcePosition.x * segmentX +
+                    sourcePosition.y * segmentY +
+                    sourcePosition.z * segmentZ
+                ) / segmentLengthSquared));
+                const closestX = sourcePosition.x + segmentX * projection;
+                const closestY = sourcePosition.y + segmentY * projection;
+                const closestZ = sourcePosition.z + segmentZ * projection;
+
+                return closestX * closestX + closestY * closestY + closestZ * closestZ > earthClearanceRadius * earthClearanceRadius;
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                if (globe) {
+                    continuousRotationY += 0.0005;
+                    globe.rotation.y += (continuousRotationY + targetRotationY + mouseX - globe.rotation.y) * 0.05;
+                    globe.rotation.x += (baseRotationX + targetRotationX - globe.rotation.x) * 0.05;
+                }
+                
+                if (cloudLayers) {
+                    cloudLayers.forEach(cloudLayer => {
+                        cloudLayer.rotation.y += cloudLayer.userData.speed;
+                    });
+                }
+
+                if (satellitesGroup) {
+                    satellitesGroup.children.forEach(sat => {
+                        sat.userData.theta += sat.userData.speed; 
+                        
+                        sat.position.set(
+                            sat.userData.radius * Math.sin(sat.userData.phi) * Math.cos(sat.userData.theta),
+                            sat.userData.radius * Math.cos(sat.userData.phi),
+                            sat.userData.radius * Math.sin(sat.userData.phi) * Math.sin(sat.userData.theta) 
+                        );
+                        
+                        sat.lookAt(0,0,0);
+                    });
+                }
+
+                if (opticalLinks.length) {
+                    const sourcePosition = new THREE.Vector3();
+                    const targetPosition = new THREE.Vector3();
+                    opticalLinks.forEach(link => {
+                        link.userData.source.getWorldPosition(sourcePosition);
+                        link.userData.target.getWorldPosition(targetPosition);
+                        const positions = link.geometry.attributes.position.array;
+                        positions[0] = sourcePosition.x;
+                        positions[1] = sourcePosition.y;
+                        positions[2] = sourcePosition.z;
+                        positions[3] = targetPosition.x;
+                        positions[4] = targetPosition.y;
+                        positions[5] = targetPosition.z;
+                        link.geometry.attributes.position.needsUpdate = true;
+                        link.visible = hasLineOfSight(sourcePosition, targetPosition);
+                    });
+                }
+
+                if (renderer && scene && camera) {
+                    renderer.render(scene, camera);
+                }
+            }
+
+            // Init scene properly depending on document ready state
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initGlobe);
+            } else {
+                initGlobe();
+            }
+
+        })(); // End of scoped IIFE
+    </script>
+</body>
+</html>
