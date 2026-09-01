@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpaceRelays | X</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0a0b10;
+      color: white;
+      overflow: hidden;
+    }
+
+    .space-bg {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(96, 165, 250, 0.14), transparent 18rem),
+        radial-gradient(circle at 80% 75%, rgba(59, 130, 246, 0.12), transparent 20rem),
+        #0a0b10;
+    }
+
+    .stars {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 35%, rgba(255,255,255,0.7) 1px, transparent 1.5px),
+        radial-gradient(circle at 75% 25%, rgba(255,255,255,0.7) 1px, transparent 1.5px),
+        radial-gradient(circle at 60% 70%, rgba(255,255,255,0.7) 1px, transparent 1.5px),
+        radial-gradient(circle at 30% 85%, rgba(255,255,255,0.7) 1px, transparent 1.5px);
+      background-size: 180px 180px;
+      opacity: 0.4;
+    }
+
+    .under-construction {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .icon-wrap {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 1.5rem;
+      border-radius: 9999px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 0 30px rgba(59,130,246,0.18);
+    }
+
+    .pulse {
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.85; }
+    }
+
+    .scan {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(96,165,250,0.25);
+    }
+
+    .scan::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      transform: translateX(-100%);
+      animation: scan 2.2s linear infinite;
+    }
+
+    @keyframes scan {
+      100% { transform: translateX(100%); }
+    }
+
+    .orbit {
+      position: absolute;
+      width: 22rem;
+      height: 22rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 9999px;
+      opacity: 0.35;
+      animation: rotate 16s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 640px) {
+      .orbit { width: 15rem; height: 15rem; }
+      h1 { font-size: 2.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="space-bg">
+    <div class="stars"></div>
+    <div class="orbit"></div>
+
+    <div class="under-construction">
+      <div class="icon-wrap pulse">
+        <i class="ph-fill ph-wrench text-5xl text-space-accentLight"></i>
+      </div>
+
+      <div class="scan mb-6">
+        <span class="text-sm font-semibold uppercase tracking-[0.25em] text-space-accentLight">Under Construction</span>
+      </div>
+
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">X</h1>
+      <p class="max-w-xl text-base md:text-lg text-slate-300">
+        Our X page is being prepared. We’ll share updates here soon.
+      </p>
+
+      <div class="mt-8 flex justify-center">
+        <a href="index.html" class="inline-flex items-center gap-2 rounded-full bg-space-accent px-6 py-3 text-sm font-semibold text-white shadow-[0_0_18px_rgba(59,130,246,0.35)] transition hover:bg-blue-600">
+          <i class="ph-bold ph-arrow-left"></i>
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
