@@ -80,7 +80,7 @@
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 110px;
+            scroll-padding-top: calc(80px + env(safe-area-inset-top));
         }
 
         body {
@@ -99,7 +99,7 @@
 
         section[id],
         div[id] {
-            scroll-margin-top: 110px;
+            scroll-margin-top: calc(80px + env(safe-area-inset-top));
         }
 
         #home,
@@ -156,7 +156,7 @@
             text-align: center;
             display: block;
             margin: 1.2rem auto 2rem auto;
-            font-size: clamp(3.2rem, 8vw, 8rem);
+            font-size: clamp(2.6rem, 13vw, 8rem);
             letter-spacing: 0.04em;
             font-weight: 700;
             color: rgba(255, 255, 255, 0.92);
@@ -308,13 +308,13 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-[90vh] flex items-center justify-center">
+    <section id="home" class="relative pt-24 pb-16 sm:pt-32 sm:pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-[90vh] flex items-center justify-center">
         <!-- Background Elements -->
         <div class="absolute inset-0 bg-stars opacity-50 z-0"></div>
         
         <div id="globe-canvas-container"></div>
         
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full mt-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full mt-4 sm:mt-10">
             <div class="flex flex-col items-center justify-center">
                 
                 <!-- Text Content -->
@@ -493,7 +493,7 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                 <p class="text-gray-400 text-lg leading-relaxed">
                     Traditional satellite communication often struggles with limited coverage and delayed data transmission. We're solving this with an advanced optical network built for reliable, continuous connectivity across space.
                 </p>
@@ -573,25 +573,25 @@
                 <div class="flex flex-wrap justify-center gap-6">
                     
                     <!-- Pawan Kumar Chandana -->
-                    <div class="glass-card p-6 rounded-2xl flex items-center gap-5 w-full max-w-[28rem] shadow-[0_0_20px_rgba(59,130,246,0.12)]">
-                        <img src="Pawan chandana.png" alt="Pawan Kumar Chandana" class="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover flex-shrink-0 border-2 border-white/10 shadow-lg">
+                    <div class="glass-card p-4 md:p-6 rounded-2xl flex items-center gap-3 md:gap-5 w-full max-w-[28rem] shadow-[0_0_20px_rgba(59,130,246,0.12)]">
+                        <img src="Pawan chandana.png" alt="Pawan Kumar Chandana" class="w-20 h-20 md:w-28 md:h-28 rounded-full object-cover flex-shrink-0 border-2 border-white/10 shadow-lg">
                         <div class="min-w-0 flex-1">
-                            <h4 class="text-xl md:text-2xl font-bold text-white leading-tight">Pawan Kumar Chandana</h4>
+                            <h4 class="text-lg md:text-2xl font-bold text-white leading-tight">Pawan Kumar Chandana</h4>
                             <p class="text-sm md:text-base text-space-accentLight mb-1.5">Strategic Advisor</p>
                             <p class="text-sm md:text-base text-gray-400 leading-relaxed line-clamp-2">CEO - Skyroot Aerospace, Ex-Scientist ISRO, IIT KGP Alumni</p>
                         </div>
-                         <a href="https://www.linkedin.com/in/pawan-kumar-chandana-a90b6514" target="_blank" rel="noopener noreferrer" class="ml-auto text-gray-500 hover:text-white transition-colors" title="LinkedIn"><i class="ph-fill ph-linkedin-logo text-2xl"></i></a>
+                         <a href="https://www.linkedin.com/in/pawan-kumar-chandana-a90b6514" target="_blank" rel="noopener noreferrer" class="ml-auto text-gray-500 hover:text-white transition-colors" title="LinkedIn"><i class="ph-fill ph-linkedin-logo text-xl md:text-2xl"></i></a>
                     </div>
 
                     <!-- John Huddle -->
-                    <div class="glass-card p-6 rounded-2xl flex items-center gap-5 w-full max-w-[28rem] shadow-[0_0_20px_rgba(59,130,246,0.12)]">
-                        <img src="John huddle.png" alt="John Huddle" class="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover flex-shrink-0 border-2 border-white/10 shadow-lg">
+                    <div class="glass-card p-4 md:p-6 rounded-2xl flex items-center gap-3 md:gap-5 w-full max-w-[28rem] shadow-[0_0_20px_rgba(59,130,246,0.12)]">
+                        <img src="John huddle.png" alt="John Huddle" class="w-20 h-20 md:w-28 md:h-28 rounded-full object-cover flex-shrink-0 border-2 border-white/10 shadow-lg">
                         <div class="min-w-0 flex-1">
-                            <h4 class="text-xl md:text-2xl font-bold text-white leading-tight">John Huddle</h4>
+                            <h4 class="text-lg md:text-2xl font-bold text-white leading-tight">John Huddle</h4>
                             <p class="text-sm md:text-base text-space-accentLight mb-1.5">Business Advisor</p>
                             <p class="text-sm md:text-base text-gray-400 leading-relaxed line-clamp-2">Ex-Director, APAC, SES Satellites, Ex-Director, Thuraya</p>
                         </div>
-                        <a href="#" class="ml-auto text-gray-500 hover:text-white transition-colors" title="LinkedIn"><i class="ph-fill ph-linkedin-logo text-2xl"></i></a>
+                        <a href="https://www.linkedin.com/in/john-huddle" target="_blank" rel="noopener noreferrer" class="ml-auto text-gray-500 hover:text-white transition-colors" title="LinkedIn"><i class="ph-fill ph-linkedin-logo text-xl md:text-2xl"></i></a>
                     </div>
 
                 </div>
@@ -819,13 +819,13 @@
                 
                 scene = new THREE.Scene();
                 
-                camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+                camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
                 camera.position.z = 4.8;
                 camera.position.x = 0;
                 camera.position.y = -0.2; 
 
                 renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setSize(container.clientWidth, container.clientHeight);
                 // Cap pixel ratio to ensure performance isn't hurt on ultra-high res screens
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
                 container.appendChild(renderer.domElement);
@@ -1030,9 +1030,11 @@
             function onWindowResize() {
                 windowHalfX = window.innerWidth / 2;
                 if(camera && renderer) {
-                    camera.aspect = window.innerWidth / window.innerHeight;
+                    const container = document.getElementById('globe-canvas-container');
+                    if (!container) return;
+                    camera.aspect = container.clientWidth / container.clientHeight;
                     camera.updateProjectionMatrix();
-                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    renderer.setSize(container.clientWidth, container.clientHeight);
                 }
             }
 
