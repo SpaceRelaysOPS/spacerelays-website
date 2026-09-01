@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions | SpaceRelays</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        space: {
+                            900: '#0a0b10',
+                            800: '#141620',
+                            700: '#1e2130',
+                            accent: '#3b82f6',
+                            accentLight: '#60a5fa'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .bg-stars {
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 100px 100px;
+        }
+
+        .glass-card {
+            background: rgba(20, 22, 32, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-space-900 text-white">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 bg-transparent transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-display font-bold flex items-center gap-2">
+                    <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays" class="h-20 w-20 rounded-full object-contain">
+                    SpaceRelays
+                </a>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html#home" class="text-sm font-medium hover:text-space-accentLight transition-colors">Home</a>
+                <a href="index.html#vision" class="text-sm font-medium hover:text-space-accentLight transition-colors">Vision</a>
+                <a href="index.html#offerings" class="text-sm font-medium hover:text-space-accentLight transition-colors">Offerings</a>
+                <a href="index.html#about" class="text-sm font-medium hover:text-space-accentLight transition-colors">About Us</a>
+                <a href="index.html#team" class="text-sm font-medium hover:text-space-accentLight transition-colors">Team</a>
+                <a href="index.html#contact" class="px-6 py-2 rounded-full bg-space-accent hover:bg-blue-600 text-white font-medium transition-all">Contact Us</a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2">
+                    <i class="ph ph-list text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden border-b border-white/5 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="index.html#home" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Home</a>
+                <a href="index.html#vision" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Vision</a>
+                <a href="index.html#offerings" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Offerings</a>
+                <a href="index.html#about" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">About Us</a>
+                <a href="index.html#team" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Team</a>
+                <a href="index.html#contact" class="mobile-link block px-3 py-3 mt-2 rounded-md text-base font-medium bg-space-accent/20 text-space-accentLight text-center">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Terms & Conditions Content -->
+    <section class="pt-32 pb-24 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">Terms & Conditions</h1>
+                <p class="text-gray-400">Last Updated: September 2026</p>
+            </div>
+            
+            <div class="glass-card rounded-2xl p-8 md:p-12 text-gray-300 leading-relaxed prose prose-invert max-w-none">
+                <div class="space-y-6 text-sm md:text-base">
+                    <div>
+                        <h2 class="text-xl font-semibold text-white mb-3">1. Definitions</h2>
+                        <p>The usage of the Platform provided by PRAKASHIKAM SPACE PRIVATE LIMITED, a company incorporated under the laws of India with company registration number U61309KA2025PTC197297 ("Company") or any services provided by the Company through the Platform, shall be governed by these terms & conditions ("Terms & Conditions" or "Terms").</p>
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-xl font-semibold text-white mb-3">2. Acceptance of Terms</h2>
+                        <p>By accessing or using the Platform, or by using any Services provided by Company, you agree to be bound by these Terms & Conditions. If you do not agree to all the Terms & Conditions, then you may not access the Platform or use any products, applications, or Services provided by Company.</p>
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-xl font-semibold text-white mb-3">3. Changes to Terms</h2>
+                        <p>The Company may revise these Terms & Conditions at any time by amending this page. It is your responsibility to check this page periodically for changes. Your continued use of the Platform or Services constitutes acceptance of such revised Terms & Conditions.</p>
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-xl font-semibold text-white mb-3">4. Eligibility</h2>
+                        <p>By agreeing to these Terms & Conditions, a User (who is a natural person) represents that they are at least 18 years of age and are competent to contract. Any Person under the age of 18 years is not permitted to use the Services except with the consent of their parents/legal guardians. If you are under 18, your parents/legal guardians shall be solely responsible for your use of the Services.</p>
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-xl font-semibold text-white mb-3">5. User Responsibility</h2>
+                        <p>You are responsible for maintaining the confidentiality of your account information and password and for restricting access to your computer. You agree to accept responsibility for all activities that occur under your account or password. The Company shall not be liable for any loss or damage arising from your failure to comply with this requirement.</p>
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-xl font-semibold text-white mb-3">6. Intellectual Property Rights</h2>
+                        <p>All content, materials, and features on the Platform, including but not limited to text, graphics, logos, images, and software, are the property of the Company or its licensors and are protected by international copyright, trademark, and other intellectual property laws.</p>
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-xl font-semibold text-white mb-3">7. User Conduct</h2>
+                        <p>You agree not to:</p>
+                        <ul class="list-disc list-inside mt-2 space-y-2">
+                            <li>Use the Platform for any unlawful purpose or in violation of any laws</li>
+                            <li>Attempt to gain unauthorized access to the Platform</li>
+                            <li>Interfere with or disrupt the functioning of the Platform</li>
+                            <li>Harass, abuse, or harm others through the Platform</li>
+                            <li>Transmit malicious code or viruses</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-xl font-semibold text-white mb-3">8. Limitation of Liability</h2>
+                        <p>To the fullest extent permitted by law, the Company shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the Platform or Services.</p>
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-xl font-semibold text-white mb-3">9. Governing Law</h2>
+                        <p>These Terms & Conditions shall be governed by and construed in accordance with the laws of India, and you irrevocably submit to the exclusive jurisdiction of the courts in India.</p>
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-xl font-semibold text-white mb-3">10. Contact Us</h2>
+                        <p>If you have any questions about these Terms & Conditions, please contact us at <a href="mailto:info@spacerelays.in" class="text-space-accent hover:text-space-accentLight">info@spacerelays.in</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="index.html" class="inline-flex items-center gap-2 px-6 py-3 bg-space-accent hover:bg-blue-600 text-white font-medium rounded-lg transition-all">
+                    <i class="ph-bold ph-arrow-left"></i>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-space-900/50 py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays" class="h-16 w-16 rounded-full object-contain">
+            </div>
+
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-linkedin-logo text-2xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-x-logo text-2xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-instagram-logo text-2xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-youtube-logo text-2xl"></i></a>
+            </div>
+            
+            <div class="text-center md:text-right">
+                <div class="flex gap-4 justify-center md:justify-end mb-2 text-sm text-gray-500">
+                    <a href="privacy-policy.html" class="hover:text-gray-300">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="terms-conditions.html" class="hover:text-gray-300">Terms & Conditions</a>
+                </div>
+                <p class="text-xs text-gray-600">
+                    &copy; 2026 by SpaceRelays (Prakashikam Space Private Limited).<br>All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            if (btn && menu) {
+                btn.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                });
+
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        menu.classList.add('hidden');
+                    });
+                });
+            }
+
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 20) {
+                        navbar.classList.add('shadow-lg', 'bg-space-900/90');
+                        navbar.classList.remove('bg-transparent');
+                    } else {
+                        navbar.classList.remove('shadow-lg', 'bg-space-900/90');
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
