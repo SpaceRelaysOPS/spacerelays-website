@@ -7,6 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script type="module" src="https://unpkg.com/@dotlottie/player-component@2.7.0/dist/dotlottie-player.mjs"></script>
   <style>
     body {
       margin: 0;
@@ -147,9 +148,14 @@
     <div class="orbit"></div>
 
     <div class="under-construction">
-      <div class="icon-wrap pulse">
-        <i class="ph-fill ph-construction text-5xl text-space-accentLight"></i>
-      </div>
+      <dotlottie-player
+        src="Under Construction.lottie"
+        autoplay
+        loop
+        speed="1"
+        background="transparent"
+        style="width: min(70vw, 560px); height: auto; margin: 0 auto 1.5rem; display: block;"
+      ></dotlottie-player>
 
       <div class="scan mb-6">
         <span class="text-sm font-semibold uppercase tracking-[0.25em] text-space-accentLight">Under Construction</span>
