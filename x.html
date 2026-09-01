@@ -48,15 +48,39 @@
     }
 
     .icon-wrap {
-      width: 110px;
-      height: 110px;
+      width: 130px;
+      height: 130px;
       margin: 0 auto 1.5rem;
-      border-radius: 9999px;
+      border-radius: 32px;
       display: grid;
       place-items: center;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow: 0 0 30px rgba(59,130,246,0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .icon-wrap::before,
+    .icon-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+    }
+
+    .icon-wrap::before {
+      background: linear-gradient(120deg, transparent 20%, rgba(96,165,250,0.15), transparent 80%);
+      transform: translateX(-100%);
+      animation: sweep 2.3s ease-in-out infinite;
+    }
+
+    .icon-wrap::after {
+      inset: 20px 18px 18px 18px;
+      border: 2px solid rgba(255,255,255,0.12);
+      border-top: 0;
+      border-radius: 0 0 20px 20px;
+      animation: pulse 1.8s ease-in-out infinite;
     }
 
     .pulse {
@@ -65,7 +89,12 @@
 
     @keyframes pulse {
       0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.08); opacity: 0.85; }
+      50% { transform: scale(1.05); opacity: 0.9; }
+    }
+
+    @keyframes sweep {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
     }
 
     .scan {
@@ -119,7 +148,7 @@
 
     <div class="under-construction">
       <div class="icon-wrap pulse">
-        <i class="ph-fill ph-wrench text-5xl text-space-accentLight"></i>
+        <i class="ph-fill ph-construction text-5xl text-space-accentLight"></i>
       </div>
 
       <div class="scan mb-6">
