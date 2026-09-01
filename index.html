@@ -27,6 +27,7 @@
         }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/jpg" href="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -794,12 +795,22 @@
             let targetRotationY = 0;
             const baseRotationX = 0.35;
             const baseRotationY = -2.95;
-            let continuousRotationY = baseRotationY;
+            let continuousRotationY = 0;
             const earthClearanceRadius = 2.04;
             let mouseX = 0;
             let windowHalfX = window.innerWidth / 2;
             let satellitesGroup;
             let opticalLinks = [];
+
+            function resetGlobeMotion() {
+                continuousRotationY = 0;
+                targetRotationX = 0;
+                targetRotationY = 0;
+                if (globe) {
+                    globe.rotation.x = baseRotationX;
+                    globe.rotation.y = baseRotationY;
+                }
+            }
 
             function initGlobe() {
                 const container = document.getElementById('globe-canvas-container');
@@ -1058,9 +1069,12 @@
                 requestAnimationFrame(animate);
 
                 if (globe) {
-                    continuousRotationY += 0.0005;
-                    globe.rotation.y += (continuousRotationY + targetRotationY + mouseX - globe.rotation.y) * 0.05;
-                    globe.rotation.x += (baseRotationX + targetRotationX - globe.rotation.x) * 0.05;
+                    continuousRotationY += 0.0007;
+                    const desiredY = baseRotationY + targetRotationY + mouseX + continuousRotationY;
+                    const desiredX = baseRotationX + targetRotationX;
+
+                    globe.rotation.y += (desiredY - globe.rotation.y) * 0.03;
+                    globe.rotation.x += (desiredX - globe.rotation.x) * 0.03;
                 }
                 
                 if (cloudLayers) {
@@ -1105,6 +1119,10 @@
                     renderer.render(scene, camera);
                 }
             }
+
+            window.addEventListener('pageshow', function() {
+                resetGlobeMotion();
+            });
 
             // Init scene properly depending on document ready state
             if (document.readyState === 'loading') {
