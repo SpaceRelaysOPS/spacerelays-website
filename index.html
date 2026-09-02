@@ -739,7 +739,7 @@
 
             backedByLogos.forEach(logo => {
                 logo.addEventListener('click', () => {
-                    backedByTrack.classList.add('is-paused');
+                    backedByTrack.classList.toggle('is-paused');
                 });
             });
 
