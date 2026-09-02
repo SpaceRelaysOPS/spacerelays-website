@@ -65,7 +65,7 @@
             will-change: transform;
         }
 
-        .marquee-track:hover {
+        .marquee-track.is-paused {
             animation-play-state: paused;
         }
         
@@ -734,6 +734,14 @@
             const btn = document.getElementById('mobile-menu-btn');
             const menu = document.getElementById('mobile-menu');
             const mobileLinks = document.querySelectorAll('.mobile-link');
+            const backedByTrack = document.querySelector('.marquee-track');
+            const backedByLogos = document.querySelectorAll('.marquee-track img');
+
+            backedByLogos.forEach(logo => {
+                logo.addEventListener('click', () => {
+                    backedByTrack.classList.add('is-paused');
+                });
+            });
 
             if (btn && menu) {
                 btn.addEventListener('click', () => {
