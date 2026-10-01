@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | SpaceRelays</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        space: {
+                            900: '#0a0b10',
+                            800: '#141620',
+                            700: '#1e2130',
+                            accent: '#3b82f6',
+                            accentLight: '#60a5fa'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/jpg" href="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        .bg-stars {
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 100px 100px;
+            background-attachment: fixed;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: calc(80px + env(safe-area-inset-top));
+        }
+
+        body {
+            background-color: #0a0b10;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                radial-gradient(circle at 12% 18%, rgba(59, 130, 246, 0.14), transparent 22rem),
+                radial-gradient(circle at 88% 72%, rgba(30, 64, 175, 0.12), transparent 26rem),
+                radial-gradient(circle at 50% 100%, rgba(15, 23, 42, 0.75), transparent 34rem);
+            background-size: 100px 100px, 100px 100px, 100px 100px, auto, auto, auto;
+            background-repeat: repeat, repeat, repeat, no-repeat, no-repeat, no-repeat;
+            background-attachment: fixed;
+        }
+
+        section[id] {
+            scroll-margin-top: calc(80px + env(safe-area-inset-top));
+        }
+
+        #mobile-menu {
+            background-color: rgba(10, 11, 16, 0.55);
+            backdrop-filter: blur(12px);
+        }
+
+        .glass-nav {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(10, 11, 16, 0.18));
+            backdrop-filter: blur(24px) saturate(145%);
+            -webkit-backdrop-filter: blur(24px) saturate(145%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .glass-card {
+            background: transparent;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2);
+        }
+
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #60a5fa, #a78bfa);
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #9ca3af;
+        }
+
+        .filter-btn:hover {
+            border-color: rgba(96, 165, 250, 0.35);
+            color: #ffffff;
+        }
+
+        .filter-btn.is-active {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(96, 165, 250, 0.45);
+            color: #60a5fa;
+        }
+
+        .date-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 4.25rem;
+            height: 4.25rem;
+            border-radius: 0.9rem;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(96, 165, 250, 0.25);
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="bg-space-900 text-gray-300 font-sans antialiased overflow-x-hidden selection:bg-space-accent selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="flex items-center gap-2">
+                        <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays" class="h-20 w-20 rounded-full object-contain">
+                    </a>
+                </div>
+
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html#home" class="text-sm font-medium hover:text-white transition-colors">Home</a>
+                    <a href="index.html#vision" class="text-sm font-medium hover:text-white transition-colors">Vision</a>
+                    <a href="index.html#offerings" class="text-sm font-medium hover:text-white transition-colors">Offerings</a>
+                    <a href="index.html#about" class="text-sm font-medium hover:text-white transition-colors">About Us</a>
+                    <a href="index.html#team" class="text-sm font-medium hover:text-white transition-colors">Team</a>
+                    <a href="events.html" class="text-sm font-medium text-white transition-colors">Events</a>
+                    <a href="index.html#contact" class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white text-sm font-medium transition-all hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">Contact Us</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2">
+                        <i class="ph ph-list text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden border-b border-white/5 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="index.html#home" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Home</a>
+                <a href="index.html#vision" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Vision</a>
+                <a href="index.html#offerings" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Offerings</a>
+                <a href="index.html#about" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">About Us</a>
+                <a href="index.html#team" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Team</a>
+                <a href="events.html" class="mobile-link block px-3 py-3 rounded-md text-base font-medium bg-white/5 text-white">Events</a>
+                <a href="index.html#contact" class="mobile-link block px-3 py-3 mt-2 rounded-md text-base font-medium bg-space-accent/20 text-space-accentLight text-center">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="relative pt-40 pb-16 sm:pt-48 sm:pb-20 overflow-hidden">
+        <div class="absolute inset-0 bg-stars opacity-50 z-0"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
+            <h2 class="text-sm font-bold tracking-widest text-space-accentLight uppercase mb-3">Events</h2>
+            <h1 class="text-4xl md:text-6xl font-display font-semibold text-white mb-6">
+                Where to find <span class="text-gradient">SpaceRelays</span>
+            </h1>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                Conferences, workshops, and briefings where we're presenting our optical relay network — or would love to meet you in person.
+            </p>
+        </div>
+    </section>
+
+    <!-- Events -->
+    <section id="events-list" class="pb-24 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Filter Buttons -->
+            <div class="mb-10 space-y-3" role="tablist">
+                <div class="flex flex-wrap gap-3">
+                    <button type="button" data-filter="conference" class="filter-btn is-active px-5 py-2.5 rounded-full text-sm font-medium border transition-all flex items-center gap-2">
+                        <i class="ph-duotone ph-rocket"></i> Conferences
+                    </button>
+                    <button type="button" data-filter="expo" class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium border transition-all flex items-center gap-2">
+                        <i class="ph-duotone ph-storefront"></i> Expos
+                    </button>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button type="button" data-filter="upcoming" class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium border transition-all flex items-center gap-2">
+                        <i class="ph-duotone ph-hourglass"></i> Upcoming
+                    </button>
+                    <button type="button" data-filter="completed" class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium border transition-all flex items-center gap-2">
+                        <i class="ph-duotone ph-check-circle"></i> Completed
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Completed Conference -->
+                <div class="event-card glass-card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 md:items-center opacity-60" data-category="conference" data-status="completed">
+                    <div class="date-block">
+                        <span class="text-xs uppercase tracking-wide text-gray-500">Jun</span>
+                        <span class="text-2xl font-bold text-gray-400 leading-none">10</span>
+                    </div>
+                    <div class="w-full max-w-[560px] shrink-0">
+                        <img src="SpaceRelays Logo (16).png" alt="IN-SPACe Industry Connect logo" class="w-full h-auto object-contain drop-shadow-[0_0_14px_rgba(59,130,246,0.35)]" />
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-3 mb-2">
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-white/5 text-gray-400">Completed</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-3 leading-relaxed">
+                            Annual In-Person Industry Meet with Stakeholders of Indian Space Sector | June 10-11 2026
+                        </p>
+                        <p class="text-gray-500 text-sm mb-3 leading-relaxed">
+                            Marking four years of IN-SPACe, IIC-10 brings together India's space ecosystem — Government, Industry, ISRO, Academia, and Investors — for two days of dialogue, deliberation, and direction-setting. Join us as we move from landmark Space Reforms 'Lift-off' to 'Second Stage Ignition', transforming initial momentum into a globally competitive space economy driven by scale, speed, and affordability.
+                        </p>
+                        <div class="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
+                            <span class="flex items-center gap-1.5"><i class="ph ph-map-pin"></i> Gujarat, India</span>
+                            <span class="flex items-center gap-1.5"><i class="ph ph-clock"></i> June 10-11, 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conference 1 -->
+                <div class="event-card glass-card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 md:items-center" data-category="conference" data-status="upcoming">
+                    <div class="date-block">
+                        <span class="text-xs uppercase tracking-wide text-space-accentLight">Mar</span>
+                        <span class="text-2xl font-bold text-white leading-none">14</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-3 mb-2">
+                            <h4 class="text-lg md:text-xl font-semibold text-white">SmallSat Symposium 2027</h4>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-space-accent/15 text-space-accentLight">Conference</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-3 leading-relaxed">
+                            SpaceRelays will present our optical inter-satellite link roadmap and take meetings with LEO constellation operators.
+                        </p>
+                        <div class="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
+                            <span class="flex items-center gap-1.5"><i class="ph ph-map-pin"></i> Mountain View, CA</span>
+                            <span class="flex items-center gap-1.5"><i class="ph ph-clock"></i> 9:00 AM – 6:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conference 2 -->
+                <div class="event-card glass-card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 md:items-center" data-category="conference" data-status="upcoming">
+                    <div class="date-block">
+                        <span class="text-xs uppercase tracking-wide text-space-accentLight">Apr</span>
+                        <span class="text-2xl font-bold text-white leading-none">22</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-3 mb-2">
+                            <h4 class="text-lg md:text-xl font-semibold text-white">Optical Comms for LEO: Technical Briefing</h4>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-purple-500/15 text-purple-300">Webinar</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-3 leading-relaxed">
+                            An open technical session walking through our relay architecture and how satellite operators can plan for optical crosslinks.
+                        </p>
+                        <div class="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
+                            <span class="flex items-center gap-1.5"><i class="ph ph-map-pin"></i> Online</span>
+                            <span class="flex items-center gap-1.5"><i class="ph ph-clock"></i> 4:00 PM IST</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expo 1 -->
+                <div class="event-card glass-card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 md:items-center" data-category="expo" data-status="upcoming">
+                    <div class="date-block">
+                        <span class="text-xs uppercase tracking-wide text-space-accentLight">May</span>
+                        <span class="text-2xl font-bold text-white leading-none">09</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-3 mb-2">
+                            <h4 class="text-lg md:text-xl font-semibold text-white">India Space Expo</h4>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-space-accent/15 text-space-accentLight">Expo</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-3 leading-relaxed">
+                            Visit our booth to see a model of our optical relay payload and talk to the team about upcoming demo missions.
+                        </p>
+                        <div class="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
+                            <span class="flex items-center gap-1.5"><i class="ph ph-map-pin"></i> Bengaluru, India</span>
+                            <span class="flex items-center gap-1.5"><i class="ph ph-clock"></i> 10:00 AM – 5:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expo 2 -->
+                <div class="event-card glass-card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 md:items-center" data-category="expo" data-status="upcoming">
+                    <div class="date-block">
+                        <span class="text-xs uppercase tracking-wide text-space-accentLight">Jun</span>
+                        <span class="text-2xl font-bold text-white leading-none">18</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-3 mb-2">
+                            <h4 class="text-lg md:text-xl font-semibold text-white">Global SATCOM Expo</h4>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-space-accent/15 text-space-accentLight">Expo</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-3 leading-relaxed">
+                            Live demo of our optical link tracking system alongside other satellite communication providers.
+                        </p>
+                        <div class="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
+                            <span class="flex items-center gap-1.5"><i class="ph ph-map-pin"></i> London, UK</span>
+                            <span class="flex items-center gap-1.5"><i class="ph ph-clock"></i> 9:30 AM – 6:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stay in the loop -->
+    <section class="pb-24 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-card rounded-2xl p-10 md:p-12 text-center">
+                <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-space-accent/10 text-space-accentLight mb-5">
+                    <i class="ph-duotone ph-calendar-plus text-2xl"></i>
+                </div>
+                <h3 class="text-2xl md:text-3xl font-display font-semibold text-white mb-3">More on the way</h3>
+                <p class="text-gray-400 max-w-lg mx-auto mb-6 leading-relaxed">
+                    We're adding new conferences, workshops, and networking events regularly. Reach out if you'd like to meet us at a specific event.
+                </p>
+                <a href="index.html#contact" class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-gradient-to-r from-space-accent to-purple-600 text-white font-medium hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all hover:scale-105">
+                    Get in Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-space-900 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+
+            <div class="flex items-center gap-2">
+                <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays" class="h-24 w-24 rounded-full object-contain">
+            </div>
+
+            <div class="flex space-x-6">
+                <a href="https://www.linkedin.com/company/spacerelays" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-linkedin-logo text-2xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-x-logo text-2xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-instagram-logo text-2xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-youtube-logo text-2xl"></i></a>
+            </div>
+
+            <div class="text-center md:text-right">
+                <div class="flex gap-4 justify-center md:justify-end mb-2 text-sm text-gray-500">
+                    <a href="privacy-policy.html" class="hover:text-gray-300">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="terms-conditions.html" class="hover:text-gray-300">Terms & Conditions</a>
+                </div>
+                <p class="text-xs text-gray-600">
+                    &copy; 2026 by SpaceRelays (Prakashikam Space Private Limited).<br>All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        const typeButtons = document.querySelectorAll('[data-filter="conference"], [data-filter="expo"]');
+        const statusButtons = document.querySelectorAll('[data-filter="upcoming"], [data-filter="completed"]');
+        const eventCards = document.querySelectorAll('.event-card');
+
+        let activeType = 'conference';
+        let activeStatus = 'all';
+
+        function applyFilters() {
+            eventCards.forEach(card => {
+                const typeMatch = activeType === 'all' || card.dataset.category === activeType;
+                const statusMatch = activeStatus === 'all' || card.dataset.status === activeStatus;
+                card.style.display = (typeMatch && statusMatch) ? '' : 'none';
+            });
+        }
+
+        typeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                typeButtons.forEach(b => b.classList.remove('is-active'));
+                btn.classList.add('is-active');
+                activeType = btn.dataset.filter;
+                applyFilters();
+            });
+        });
+
+        statusButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const alreadyActive = btn.classList.contains('is-active');
+                statusButtons.forEach(b => b.classList.remove('is-active'));
+                if (!alreadyActive) {
+                    btn.classList.add('is-active');
+                    activeStatus = btn.dataset.filter;
+                } else {
+                    activeStatus = 'all';
+                }
+                applyFilters();
+            });
+        });
+    </script>
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
+    </script>
+</body>
+</html>
