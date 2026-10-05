@@ -199,10 +199,7 @@
                     </button>
                 </div>
                 <div class="flex flex-wrap gap-3">
-                    <button type="button" data-filter="upcoming" class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium border transition-all flex items-center gap-2">
-                        <i class="ph-duotone ph-hourglass"></i> Upcoming
-                    </button>
-                    <button type="button" data-filter="completed" class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium border transition-all flex items-center gap-2">
+                    <button type="button" data-filter="completed" class="filter-btn is-active px-5 py-2.5 rounded-full text-sm font-medium border transition-all flex items-center gap-2">
                         <i class="ph-duotone ph-check-circle"></i> Completed
                     </button>
                 </div>
@@ -259,48 +256,6 @@
                     </div>
                 </div>
 
-                <!-- Conference 1 -->
-                <div class="event-card glass-card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 md:items-center" data-category="conference" data-status="upcoming">
-                    <div class="date-block">
-                        <span class="text-xs uppercase tracking-wide text-space-accentLight">Mar</span>
-                        <span class="text-2xl font-bold text-white leading-none">14</span>
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex flex-wrap items-center gap-3 mb-2">
-                            <h4 class="text-lg md:text-xl font-semibold text-white">SmallSat Symposium 2027</h4>
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-space-accent/15 text-space-accentLight">Conference</span>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                            SpaceRelays will present our optical inter-satellite link roadmap and take meetings with LEO constellation operators.
-                        </p>
-                        <div class="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
-                            <span class="flex items-center gap-1.5"><i class="ph ph-map-pin"></i> Mountain View, CA</span>
-                            <span class="flex items-center gap-1.5"><i class="ph ph-clock"></i> 9:00 AM – 6:00 PM</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conference 2 -->
-                <div class="event-card glass-card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 md:items-center" data-category="conference" data-status="upcoming">
-                    <div class="date-block">
-                        <span class="text-xs uppercase tracking-wide text-space-accentLight">Apr</span>
-                        <span class="text-2xl font-bold text-white leading-none">22</span>
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex flex-wrap items-center gap-3 mb-2">
-                            <h4 class="text-lg md:text-xl font-semibold text-white">Optical Comms for LEO: Technical Briefing</h4>
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-purple-500/15 text-purple-300">Webinar</span>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                            An open technical session walking through our relay architecture and how satellite operators can plan for optical crosslinks.
-                        </p>
-                        <div class="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
-                            <span class="flex items-center gap-1.5"><i class="ph ph-map-pin"></i> Online</span>
-                            <span class="flex items-center gap-1.5"><i class="ph ph-clock"></i> 4:00 PM IST</span>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Completed Expo: Bengaluru Space Expo 2026 -->
                 <div class="event-card glass-card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 md:items-center opacity-60" data-category="expo" data-status="completed">
                     <div class="date-block">
@@ -331,47 +286,6 @@
                     </div>
                 </div>
 
-                <!-- Expo 1 -->
-                <div class="event-card glass-card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 md:items-center" data-category="expo" data-status="upcoming">
-                    <div class="date-block">
-                        <span class="text-xs uppercase tracking-wide text-space-accentLight">May</span>
-                        <span class="text-2xl font-bold text-white leading-none">09</span>
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex flex-wrap items-center gap-3 mb-2">
-                            <h4 class="text-lg md:text-xl font-semibold text-white">India Space Expo</h4>
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-space-accent/15 text-space-accentLight">Expo</span>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                            Visit our booth to see a model of our optical relay payload and talk to the team about upcoming demo missions.
-                        </p>
-                        <div class="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
-                            <span class="flex items-center gap-1.5"><i class="ph ph-map-pin"></i> Bengaluru, India</span>
-                            <span class="flex items-center gap-1.5"><i class="ph ph-clock"></i> 10:00 AM – 5:00 PM</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Expo 2 -->
-                <div class="event-card glass-card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 md:items-center" data-category="expo" data-status="upcoming">
-                    <div class="date-block">
-                        <span class="text-xs uppercase tracking-wide text-space-accentLight">Jun</span>
-                        <span class="text-2xl font-bold text-white leading-none">18</span>
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex flex-wrap items-center gap-3 mb-2">
-                            <h4 class="text-lg md:text-xl font-semibold text-white">Global SATCOM Expo</h4>
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-space-accent/15 text-space-accentLight">Expo</span>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                            Live demo of our optical link tracking system alongside other satellite communication providers.
-                        </p>
-                        <div class="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
-                            <span class="flex items-center gap-1.5"><i class="ph ph-map-pin"></i> London, UK</span>
-                            <span class="flex items-center gap-1.5"><i class="ph ph-clock"></i> 9:30 AM – 6:00 PM</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -423,11 +337,11 @@
     </footer>
     <script>
         const typeButtons = document.querySelectorAll('[data-filter="conference"], [data-filter="expo"]');
-        const statusButtons = document.querySelectorAll('[data-filter="upcoming"], [data-filter="completed"]');
+        const statusButtons = document.querySelectorAll('[data-filter="completed"]');
         const eventCards = document.querySelectorAll('.event-card');
 
         let activeType = 'conference';
-        let activeStatus = 'all';
+        let activeStatus = 'completed';
 
         function applyFilters() {
             eventCards.forEach(card => {
