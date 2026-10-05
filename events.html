@@ -199,6 +199,9 @@
                     </button>
                 </div>
                 <div class="flex flex-wrap gap-3">
+                    <button type="button" data-filter="upcoming" class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium border transition-all flex items-center gap-2">
+                        <i class="ph-duotone ph-hourglass"></i> Upcoming
+                    </button>
                     <button type="button" data-filter="completed" class="filter-btn is-active px-5 py-2.5 rounded-full text-sm font-medium border transition-all flex items-center gap-2">
                         <i class="ph-duotone ph-check-circle"></i> Completed
                     </button>
@@ -286,6 +289,14 @@
                     </div>
                 </div>
 
+                <div id="upcoming-message" class="glass-card rounded-2xl p-8 text-center hidden">
+                    <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-space-accent/10 text-space-accentLight mb-4">
+                        <i class="ph-duotone ph-hourglass text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Upcoming event updates are underway</h3>
+                    <p class="text-gray-400">New events are being prepared. Please check back soon.</p>
+                </div>
+
             </div>
         </div>
     </section>
@@ -337,8 +348,9 @@
     </footer>
     <script>
         const typeButtons = document.querySelectorAll('[data-filter="conference"], [data-filter="expo"]');
-        const statusButtons = document.querySelectorAll('[data-filter="completed"]');
+        const statusButtons = document.querySelectorAll('[data-filter="upcoming"], [data-filter="completed"]');
         const eventCards = document.querySelectorAll('.event-card');
+        const upcomingMessage = document.getElementById('upcoming-message');
 
         let activeType = 'conference';
         let activeStatus = 'completed';
@@ -349,6 +361,7 @@
                 const statusMatch = activeStatus === 'all' || card.dataset.status === activeStatus;
                 card.style.display = (typeMatch && statusMatch) ? '' : 'none';
             });
+            upcomingMessage.classList.toggle('hidden', activeStatus !== 'upcoming');
         }
 
         typeButtons.forEach(btn => {
