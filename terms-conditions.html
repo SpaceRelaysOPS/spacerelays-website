@@ -70,7 +70,135 @@
         }
 
         .legal-shell {
+            width: 100%;
             max-width: 1100px;
+        }
+
+        .wide-container {
+            width: 100%;
+        }
+
+        .site-header {
+            min-height: 5rem;
+        }
+
+        .legal-content {
+            overflow-wrap: anywhere;
+        }
+
+        @media (max-width: 767px) {
+            .legal-section {
+                padding-top: 3rem;
+                padding-bottom: 4rem;
+            }
+
+            .legal-content {
+                border-radius: 1rem;
+                padding: 1.25rem;
+                font-size: 0.9375rem;
+                line-height: 1.75;
+            }
+
+            .legal-content h2 {
+                scroll-margin-top: 1.5rem;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1279px) {
+            .legal-shell {
+                max-width: 960px;
+            }
+
+            .legal-section {
+                padding-top: 4rem;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .legal-shell {
+                max-width: 1200px;
+            }
+
+            .legal-section {
+                padding-top: 5rem;
+            }
+
+            .legal-content {
+                padding: 3rem;
+                font-size: 1.0625rem;
+                line-height: 1.85;
+            }
+        }
+
+        @media (min-width: 2000px) {
+            .wide-container {
+                width: 92% !important;
+                max-width: 2200px !important;
+            }
+
+            .legal-shell {
+                max-width: 1500px;
+            }
+
+            .legal-content {
+                padding: 4rem;
+                font-size: 1.125rem;
+            }
+        }
+
+        @media (min-width: 2880px) {
+            .wide-container {
+                width: 88% !important;
+                max-width: 3000px !important;
+            }
+
+            .legal-shell {
+                max-width: 1800px;
+            }
+
+            .legal-content {
+                padding: 4.5rem;
+                font-size: 1.25rem;
+                line-height: 1.9;
+            }
+        }
+
+        @media (min-width: 2000px) {
+            .wide-container {
+                width: 92% !important;
+                max-width: 2200px !important;
+            }
+
+            #navbar .hidden.lg\\:flex {
+                gap: 1.5rem;
+            }
+
+            #navbar .hidden.lg\\:flex > a {
+                font-size: 1.0625rem;
+            }
+
+            .site-header {
+                min-height: 6rem;
+            }
+        }
+
+        @media (min-width: 2880px) {
+            .wide-container {
+                width: 88% !important;
+                max-width: 3000px !important;
+            }
+
+            #navbar .hidden.lg\\:flex {
+                gap: 2rem;
+            }
+
+            #navbar .hidden.lg\\:flex > a {
+                font-size: 1.125rem;
+            }
+
+            .site-header {
+                min-height: 6.5rem;
+            }
         }
 
         .text-gradient {
@@ -84,47 +212,51 @@
 <body class="bg-space-900 text-white">
     <!-- Navigation -->
     <nav id="navbar" class="relative w-full z-50 border-b border-white/10 bg-gradient-to-b from-white/[0.07] via-white/[0.025] to-transparent backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_10px_30px_rgba(15,23,42,0.18)] transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <div class="flex items-center">
-                <a href="index.html" class="text-2xl font-display font-bold flex items-center gap-2">
-                    <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays" class="h-24 w-24 rounded-full object-contain">
-                    SpaceRelays
+        <div class="site-header wide-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex justify-between items-center gap-3">
+            <div class="flex min-w-0 items-center">
+                <a href="index.html" aria-label="SpaceRelays home" class="text-xl sm:text-2xl font-display font-bold flex min-w-0 items-center gap-2">
+                    <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays" class="h-14 w-14 sm:h-16 sm:w-16 2xl:h-20 2xl:w-20 rounded-full object-contain">
+                    <span class="truncate">SpaceRelays</span>
                 </a>
             </div>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="index.html#home" class="text-sm font-medium hover:text-space-accentLight transition-colors">Home</a>
-                <a href="index.html#vision" class="text-sm font-medium hover:text-space-accentLight transition-colors">Vision</a>
-                <a href="index.html#offerings" class="text-sm font-medium hover:text-space-accentLight transition-colors">Offerings</a>
-                <a href="index.html#about" class="text-sm font-medium hover:text-space-accentLight transition-colors">About Us</a>
-                <a href="index.html#contact" class="px-6 py-2 rounded-full bg-space-accent hover:bg-blue-600 text-white font-medium transition-all">Contact Us</a>
+            <div class="hidden lg:flex items-center gap-4 xl:gap-6 2xl:gap-8">
+                <a href="index.html#home" class="text-sm 2xl:text-base font-medium hover:text-space-accentLight transition-colors">Home</a>
+                <a href="index.html#vision" class="text-sm 2xl:text-base font-medium hover:text-space-accentLight transition-colors">Vision</a>
+                <a href="index.html#offerings" class="text-sm 2xl:text-base font-medium hover:text-space-accentLight transition-colors">Offerings</a>
+                <a href="index.html#about" class="text-sm 2xl:text-base font-medium hover:text-space-accentLight transition-colors">About Us</a>
+                <a href="index.html#team" class="text-sm 2xl:text-base font-medium hover:text-space-accentLight transition-colors">Team</a>
+                <a href="events.html" class="text-sm 2xl:text-base font-medium hover:text-space-accentLight transition-colors">Events</a>
+                <a href="index.html#contact" class="px-4 xl:px-6 py-2 rounded-full bg-space-accent hover:bg-blue-600 text-white text-sm 2xl:text-base font-medium transition-all">Contact Us</a>
             </div>
 
-            <div class="md:hidden flex items-center">
-                <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2">
+            <div class="lg:hidden flex items-center">
+                <button id="mobile-menu-btn" type="button" aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false" class="text-gray-300 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-space-accentLight rounded-lg p-2">
                     <i class="ph ph-list text-2xl"></i>
                 </button>
             </div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden border-b border-white/5 absolute w-full">
-            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+        <div id="mobile-menu" class="hidden lg:hidden border-b border-white/5 absolute w-full bg-space-900/95 backdrop-blur-xl">
+            <div class="max-h-[calc(100vh-5rem)] overflow-y-auto px-4 pt-2 pb-6 space-y-2 flex flex-col">
                 <a href="index.html#home" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Home</a>
                 <a href="index.html#vision" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Vision</a>
                 <a href="index.html#offerings" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Offerings</a>
                 <a href="index.html#about" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">About Us</a>
+                <a href="index.html#team" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Team</a>
+                <a href="events.html" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Events</a>
                 <a href="index.html#contact" class="mobile-link block px-3 py-3 mt-2 rounded-md text-base font-medium bg-space-accent/20 text-space-accentLight text-center">Contact Us</a>
             </div>
         </div>
     </nav>
 
     <!-- Terms & Conditions Content -->
-    <section class="pt-32 pb-24 relative">
+    <section class="legal-section pt-16 sm:pt-24 lg:pt-32 pb-16 sm:pb-24 relative">
         <div class="legal-shell mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h1 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">Terms & Conditions</h1>
+            <div class="text-center mb-8 sm:mb-12 lg:mb-16">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl 2xl:text-6xl font-display font-bold text-white mb-4">Terms & Conditions</h1>
             </div>
             
-            <div class="glass-card rounded-2xl p-8 md:p-12 text-gray-300 leading-relaxed prose prose-invert max-w-none">
+            <div class="legal-content glass-card rounded-2xl p-5 sm:p-8 md:p-12 text-gray-300 leading-relaxed prose prose-invert max-w-none">
                 <div class="space-y-6 text-sm md:text-base">
                     <p>Terms and Conditions</p>
                     <p>The usage of the Platform (as defined hereinafter) provided by PRAKASHIKAM SPACE PRIVATE LIMITED, a company incorporated under the laws of India with company registration number U61309KA2025PTC197297 (“Company”) or any services provided by the Company through the Platform, shall be governed by these terms &amp; conditions (“Terms &amp; Conditions” or “Terms”).</p>
@@ -302,20 +434,20 @@
     </section>
 
     <footer class="bg-space-900/50 py-12 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-2">
-                <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays" class="h-16 w-16 rounded-full object-contain">
+        <div class="wide-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-center justify-items-center gap-6 sm:gap-8 lg:gap-12">
+            <div class="flex items-center gap-2 sm:justify-self-start">
+                <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays" class="h-16 w-16 sm:h-20 sm:w-20 2xl:h-24 2xl:w-24 rounded-full object-contain">
             </div>
 
-            <div class="flex space-x-6">
-                <a href="https://www.linkedin.com/company/spacerelays" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-white transition-colors" title="LinkedIn"><i class="ph-fill ph-linkedin-logo text-2xl"></i></a>
+            <div class="flex items-center justify-center gap-4" aria-label="Social media">
+                <a href="https://www.linkedin.com/company/spacerelays" target="_blank" rel="noopener noreferrer" aria-label="SpaceRelays on LinkedIn" class="inline-flex min-h-11 min-w-11 items-center justify-center text-gray-500 hover:text-white transition-colors" title="LinkedIn"><i class="ph-fill ph-linkedin-logo text-2xl"></i></a>
                 
                 
                 
             </div>
             
-            <div class="text-center md:text-right">
-                <div class="flex gap-4 justify-center md:justify-end mb-2 text-sm text-gray-500">
+            <div class="sm:col-span-2 lg:col-span-1 text-center lg:text-right lg:justify-self-end">
+                <div class="flex flex-wrap gap-x-4 gap-y-2 justify-center lg:justify-end mb-2 text-sm text-gray-500">
                     <a href="privacy-policy.html" class="hover:text-gray-300">Privacy Policy</a>
                     <span>|</span>
                     <a href="terms-conditions.html" class="hover:text-gray-300">Terms & Conditions</a>
@@ -336,13 +468,27 @@
 
             if (btn && menu) {
                 btn.addEventListener('click', () => {
-                    menu.classList.toggle('hidden');
+                    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+                    btn.setAttribute('aria-expanded', String(!isExpanded));
+                    btn.setAttribute('aria-label', isExpanded ? 'Open navigation menu' : 'Close navigation menu');
+                    menu.classList.toggle('hidden', isExpanded);
                 });
 
                 mobileLinks.forEach(link => {
                     link.addEventListener('click', () => {
                         menu.classList.add('hidden');
+                        btn.setAttribute('aria-expanded', 'false');
+                        btn.setAttribute('aria-label', 'Open navigation menu');
                     });
+                });
+
+                document.addEventListener('keydown', event => {
+                    if (event.key === 'Escape' && !menu.classList.contains('hidden')) {
+                        menu.classList.add('hidden');
+                        btn.setAttribute('aria-expanded', 'false');
+                        btn.setAttribute('aria-label', 'Open navigation menu');
+                        btn.focus();
+                    }
                 });
             }
 
