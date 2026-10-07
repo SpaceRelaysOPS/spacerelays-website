@@ -125,39 +125,206 @@
             border: 1px solid rgba(96, 165, 250, 0.25);
             flex-shrink: 0;
         }
+
+        @media (min-width: 768px) and (max-width: 1279px) {
+            #events-list .event-card {
+                display: grid;
+                grid-template-columns: 5rem minmax(0, 1fr);
+                align-items: start;
+                gap: 1.5rem;
+            }
+
+            #events-list .event-card > .date-block {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            #events-list .event-card > div:nth-child(2) {
+                grid-column: 2;
+                grid-row: 1;
+                width: 100%;
+                max-width: none;
+                min-width: 0;
+            }
+
+            #events-list .event-card > div:nth-child(2) img {
+                width: 100%;
+                max-height: 24rem;
+                object-fit: contain;
+            }
+
+            #events-list .event-card > div.flex-1 {
+                grid-column: 1 / -1;
+                grid-row: 2;
+                min-width: 0;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            #events-list .event-card {
+                display: grid;
+                grid-template-columns: 5rem minmax(0, 1fr) minmax(0, 1.15fr);
+                align-items: start;
+                gap: 1.5rem;
+                padding: 2rem;
+            }
+
+            #events-list .event-card > .date-block {
+                width: 5rem;
+                height: 5rem;
+                align-self: start;
+            }
+
+            #events-list .event-card > div:nth-child(2) {
+                width: 100%;
+                max-width: none;
+                min-width: 0;
+            }
+
+            #events-list .event-card > div.flex-1 {
+                min-width: 0;
+            }
+
+            #events-list .event-card > div:nth-child(2) img {
+                width: 100%;
+                max-height: 25rem;
+                object-fit: contain;
+            }
+
+            #events-list .event-card p {
+                max-width: 72ch;
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            #events-list .event-card {
+                grid-template-columns: 5.5rem minmax(0, 1fr) minmax(0, 1.2fr);
+                gap: 2rem;
+                padding: 2.5rem;
+            }
+
+            #events-list .event-card > .date-block {
+                width: 5.5rem;
+                height: 5.5rem;
+            }
+
+            #events-list .event-card > div:nth-child(2) img {
+                max-height: 30rem;
+            }
+        }
+
+        @media (min-width: 2000px) {
+            .wide-container {
+                width: 92% !important;
+                max-width: 2200px !important;
+            }
+
+            #navbar .flex.justify-between {
+                min-height: 6.5rem;
+            }
+
+            #navbar .hidden.lg\\:flex {
+                gap: 1.5rem;
+            }
+
+            #navbar .hidden.lg\\:flex > a {
+                font-size: 1.0625rem;
+            }
+
+            #events-list .event-card {
+                grid-template-columns: 6rem minmax(0, 1fr) minmax(0, 1.2fr);
+                gap: 2.5rem;
+                padding: 3rem;
+            }
+
+            #events-list .event-card > .date-block {
+                width: 6rem;
+                height: 6rem;
+            }
+
+            #events-list .event-card > div:nth-child(2) img {
+                max-height: 34rem;
+            }
+
+            #events-list .event-card p {
+                font-size: 1.125rem;
+                line-height: 1.85;
+            }
+
+            footer {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+        }
+
+        @media (min-width: 2880px) {
+            .wide-container {
+                width: 88% !important;
+                max-width: 3000px !important;
+            }
+
+            #navbar .hidden.lg\\:flex {
+                gap: 2.5rem;
+            }
+
+            #navbar .hidden.lg\\:flex > a {
+                font-size: 1.25rem;
+            }
+
+            #events-list .event-card {
+                grid-template-columns: 7rem minmax(0, 1fr) minmax(0, 1.2fr);
+                gap: 3rem;
+                padding: 3.5rem;
+            }
+
+            #events-list .event-card > .date-block {
+                width: 7rem;
+                height: 7rem;
+            }
+
+            #events-list .event-card > div:nth-child(2) img {
+                max-height: 40rem;
+            }
+
+            #events-list .event-card p {
+                font-size: 1.25rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-space-900 text-gray-300 font-sans antialiased overflow-x-hidden selection:bg-space-accent selection:text-white">
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+        <div class="wide-container max-w-7xl 2xl:w-[92%] 2xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-0">
+            <div class="flex justify-between items-center h-16 sm:h-20 2xl:h-24">
                 <div class="flex-shrink-0 flex items-center">
                     <a href="index.html" class="flex items-center gap-2">
-                        <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays" class="h-20 w-20 rounded-full object-contain">
+                        <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays home" class="h-14 w-14 sm:h-16 sm:w-16 2xl:h-20 2xl:w-20 rounded-full object-contain">
                     </a>
                 </div>
 
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="index.html#home" class="text-sm font-medium hover:text-white transition-colors">Home</a>
-                    <a href="index.html#vision" class="text-sm font-medium hover:text-white transition-colors">Vision</a>
-                    <a href="index.html#offerings" class="text-sm font-medium hover:text-white transition-colors">Offerings</a>
-                    <a href="index.html#about" class="text-sm font-medium hover:text-white transition-colors">About Us</a>
-                    <a href="index.html#team" class="text-sm font-medium hover:text-white transition-colors">Team</a>
-                    <a href="events.html" class="text-sm font-medium text-white transition-colors">Events</a>
-                    <a href="index.html#contact" class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white text-sm font-medium transition-all hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">Contact Us</a>
+                <div class="hidden lg:flex items-center gap-4 xl:gap-6 2xl:gap-8">
+                    <a href="index.html#home" class="text-sm 2xl:text-base font-medium hover:text-white transition-colors">Home</a>
+                    <a href="index.html#vision" class="text-sm 2xl:text-base font-medium hover:text-white transition-colors">Vision</a>
+                    <a href="index.html#offerings" class="text-sm 2xl:text-base font-medium hover:text-white transition-colors">Offerings</a>
+                    <a href="index.html#about" class="text-sm 2xl:text-base font-medium hover:text-white transition-colors">About Us</a>
+                    <a href="index.html#team" class="text-sm 2xl:text-base font-medium hover:text-white transition-colors">Team</a>
+                    <a href="events.html" aria-current="page" class="text-sm 2xl:text-base font-medium text-white transition-colors">Events</a>
+                    <a href="index.html#contact" class="px-4 xl:px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white text-sm 2xl:text-base font-medium transition-all hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">Contact Us</a>
                 </div>
 
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2">
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" type="button" aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false" class="text-gray-300 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-space-accentLight rounded-lg p-2">
                         <i class="ph ph-list text-2xl"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden border-b border-white/5 absolute w-full">
+        <div id="mobile-menu" class="hidden lg:hidden border-b border-white/5 absolute w-full">
             <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
                 <a href="index.html#home" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Home</a>
                 <a href="index.html#vision" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-white/5 hover:text-white">Vision</a>
@@ -173,9 +340,9 @@
     <!-- Page Header -->
     <section class="relative pt-40 pb-16 sm:pt-48 sm:pb-20 overflow-hidden">
         <div class="absolute inset-0 bg-stars opacity-50 z-0"></div>
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
+        <div class="wide-container max-w-7xl 2xl:w-[92%] 2xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-0 relative text-center">
             <h2 class="text-sm font-bold tracking-widest text-space-accentLight uppercase mb-3">Events</h2>
-            <h1 class="text-4xl md:text-6xl font-display font-semibold text-white mb-6">
+            <h1 class="text-4xl md:text-6xl 2xl:text-7xl font-display font-semibold text-white mb-6">
                 Where to find <span class="text-gradient">SpaceRelays</span>
             </h1>
             <p class="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
@@ -186,7 +353,7 @@
 
     <!-- Events -->
     <section id="events-list" class="pb-24 relative">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="wide-container max-w-7xl 2xl:w-[92%] 2xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-0">
 
             <!-- Filter Buttons -->
             <div class="mb-10 space-y-3" role="tablist">
@@ -303,7 +470,7 @@
 
     <!-- Stay in the loop -->
     <section class="pb-24 relative">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="wide-container max-w-7xl 2xl:w-[92%] 2xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-0">
             <div class="glass-card rounded-2xl p-10 md:p-12 text-center">
                 <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-space-accent/10 text-space-accentLight mb-5">
                     <i class="ph-duotone ph-calendar-plus text-2xl"></i>
@@ -321,21 +488,21 @@
 
     <!-- Footer -->
     <footer class="bg-space-900 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="wide-container max-w-7xl 2xl:w-[92%] 2xl:max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-0 grid grid-cols-1 md:grid-cols-3 items-center justify-items-center gap-8 lg:gap-12">
 
-            <div class="flex items-center gap-2">
-                <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays" class="h-24 w-24 rounded-full object-contain">
+            <div class="flex items-center justify-center md:justify-self-start">
+                <img src="https://raw.githubusercontent.com/SpaceRelaysOPS/spacerelays-website/main/spacerelays_logo-1.jpg" alt="SpaceRelays" class="h-16 w-16 sm:h-20 sm:w-20 2xl:h-24 2xl:w-24 rounded-full object-contain">
             </div>
 
-            <div class="flex space-x-6">
-                <a href="https://www.linkedin.com/company/spacerelays" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-linkedin-logo text-2xl"></i></a>
-                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-x-logo text-2xl"></i></a>
-                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-instagram-logo text-2xl"></i></a>
-                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-youtube-logo text-2xl"></i></a>
+            <div class="flex items-center justify-center gap-7" aria-label="Social media">
+                <a href="https://www.linkedin.com/company/spacerelays" target="_blank" rel="noopener noreferrer" aria-label="SpaceRelays on LinkedIn" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-linkedin-logo text-2xl"></i></a>
+                <a href="#" aria-label="SpaceRelays on X" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-x-logo text-2xl"></i></a>
+                <a href="#" aria-label="SpaceRelays on Instagram" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-instagram-logo text-2xl"></i></a>
+                <a href="#" aria-label="SpaceRelays on YouTube" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-youtube-logo text-2xl"></i></a>
             </div>
 
-            <div class="text-center md:text-right">
-                <div class="flex gap-4 justify-center md:justify-end mb-2 text-sm text-gray-500">
+            <div class="text-center md:text-right md:justify-self-end">
+                <div class="flex flex-wrap gap-x-4 gap-y-2 justify-center md:justify-end mb-3 text-sm text-gray-500">
                     <a href="privacy-policy.html" class="hover:text-gray-300">Privacy Policy</a>
                     <span>|</span>
                     <a href="terms-conditions.html" class="hover:text-gray-300">Terms & Conditions</a>
@@ -394,10 +561,25 @@
         const mobileMenu = document.getElementById('mobile-menu');
         if (mobileMenuBtn && mobileMenu) {
             mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
+                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                mobileMenuBtn.setAttribute('aria-expanded', String(!isExpanded));
+                mobileMenuBtn.setAttribute('aria-label', isExpanded ? 'Open navigation menu' : 'Close navigation menu');
+                mobileMenu.classList.toggle('hidden', isExpanded);
             });
             document.querySelectorAll('.mobile-link').forEach(link => {
-                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
+                });
+            });
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
+                    mobileMenuBtn.focus();
+                }
             });
         }
     </script>
